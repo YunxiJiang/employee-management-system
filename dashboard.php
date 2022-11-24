@@ -32,10 +32,13 @@ include "connect.php";
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Admin</a>
+                            <a class="nav-link active" aria-current="page" href="dashboard.php">dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Employee</a>
+                            <a class="nav-link active" aria-current="page" href="admin/admin.php">Admin</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="employee/employee.php">Employee</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Performance</a>
@@ -47,11 +50,6 @@ include "connect.php";
                             <a class="nav-link active" aria-current="page" href="#">Leave</a>
                         </li>
                     </ul>
-
-                    <form class="d-flex mt-3" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
                 </div>
             </div>
         </div>
@@ -62,7 +60,7 @@ include "connect.php";
             <div class="col-4">
                 <div class="card shadow " style="width: 18rem;">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-center">Admins</li>
+                        <li class="list-group-item text-center ">Admins</li>
                         <li class="list-group-item">Total Admin :
                             <?php
                             // show all the admins
@@ -138,19 +136,22 @@ include "connect.php";
                     $sql_award_board = "SELECT Employee.id, Employee.name, Employee.email, Employee.salary, Performance.award_name FROM Employee INNER JOIN Performance ON Employee.award_id = Performance.award_id;";
 
                     $result_award_board = mysqli_query($con, $sql_award_board);
-
-                    while ($row = mysqli_fetch_assoc($result_award_board)) {
-                        echo
-                        '<tbody>
-                            <tr>
-                                <td>' . $row['id'] . '</td>
-                                <td>' . $row['name'] . '</td>
-                                <td>' . $row['email'] . '</td>
-                                <td>' . $row['salary'] . '</td>
-                                <td>' . $row['award_name'] . '</td>
-                            </tr>
-                        </tbody>';
+                
+                    if (mysqli_num_rows($result_award_board) > 0) {
+                        while ($row = mysqli_fetch_assoc($result_award_board)) {
+                            echo
+                            '<tbody>
+                                <tr>
+                                    <td>' . $row['id'] . '</td>
+                                    <td>' . $row['name'] . '</td>
+                                    <td>' . $row['email'] . '</td>
+                                    <td>' . $row['salary'] . '</td>
+                                    <td>' . $row['award_name'] . '</td>
+                                </tr>
+                            </tbody>';
+                        }
                     }
+                    
                     ?>
 
                 </table>

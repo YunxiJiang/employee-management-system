@@ -35,7 +35,7 @@
                                     <h2 class="text-center pb-4">Employee Management System</h2>
                                     
                                     <div class="mx-auto" style="width: 100px;">
-                                        <a href="" class="btn btn-primary btn-lg">Start</a>
+                                        <a href="dashboard.php" class="btn btn-primary btn-lg">Start</a>
                                       </div>
                                 </div>
                             </div>
