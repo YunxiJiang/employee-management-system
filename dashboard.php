@@ -63,7 +63,14 @@ include "connect.php";
                 <div class="card shadow " style="width: 18rem;">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-center">Admins</li>
-                        <li class="list-group-item">Total Admin : 1 </li>
+                        <li class="list-group-item">Total Admin :
+                            <?php
+                            // show all the admins
+                            $sql_admin = "SELECT * FROM Admin;";
+                            $result_admin = mysqli_query($con, $sql_admin);
+                            echo mysqli_num_rows($result_admin);
+                            ?>
+                        </li>
                         <li class="list-group-item text-center"><a href="manage-admin.php"><b>View All Admins</b></a></li>
                     </ul>
                 </div>
@@ -72,7 +79,15 @@ include "connect.php";
                 <div class="card shadow " style="width: 18rem;">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-center">Employees</li>
-                        <li class="list-group-item">Total Employees : 2</li>
+                        <li class="list-group-item">Total Employees :
+                            <?php
+                            // show all the employees
+                            $sql_employee = "SELECT * FROM Employee;";
+                            $result_employee = mysqli_query($con, $sql_employee);
+                            echo mysqli_num_rows($result_employee);
+                            ?>
+
+                        </li>
                         <li class="list-group-item text-center"><a href="manage-employee.php"> <b>View All Employees</b></a></li>
                     </ul>
                 </div>
@@ -81,8 +96,23 @@ include "connect.php";
                 <div class="card shadow " style="width: 18rem;">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-center">Attendance and Leave</li>
-                        <li class="list-group-item">Attendance : 0 </li>
-                        <li class="list-group-item">Leave : 0 </li>
+                        <li class="list-group-item">Attendance :
+                            <?php
+                            // show all the attendances
+                            $sql_attendance = "SELECT * FROM Employee_attendance;";
+                            $result_attendance = mysqli_query($con, $sql_attendance);
+                            echo mysqli_num_rows($result_attendance);
+                            ?>
+
+                        </li>
+                        <li class="list-group-item">Leave :
+                            <?php
+                            // show all the leaves
+                            $sql_leave = "SELECT * FROM Employee_leave;";
+                            $result_leave = mysqli_query($con, $sql_leave);
+                            echo mysqli_num_rows($result_leave);
+                            ?>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -90,36 +120,39 @@ include "connect.php";
         <div class="row mt-5 bg-white shadow ">
             <div class="col-12">
                 <div class=" text-center my-3 ">
-                    <h4>Employee Leadership Board</h4>
+                    <h4>Employee Award Board</h4>
                 </div>
                 <table class="table  table-hover">
                     <thead>
-                        <tr class="bg-dark">
-                            <th scope="col">S.No.</th>
-                            <th scope="col">Employee's Id</th>
-                            <th scope="col">Employee's Name</th>
-                            <th scope="col">Employee's Email</th>
-                            <th scope="col">Salary in Rs.</th>
+                        <tr class="bg-info">
+                            <th scope="col">Employee Id</th>
+                            <th scope="col">Employee Name</th>
+                            <th scope="col">Employee Email</th>
+                            <th scope="col">Employee Salary</th>
+                            <th scope="col">Award</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <th>1. </th>
-                            <th>14</th>
-                            <td>emp2</td>
-                            <td>emp2@emp.com</td>
-                            <td>3432423</td>
-                        </tr>
+                    <?php
 
-                        <tr>
-                            <th>2. </th>
-                            <th>16</th>
-                            <td>test</td>
-                            <td>test@gmail.com</td>
-                            <td>234</td>
-                        </tr>
+                    // Search for employee with award
+                    $sql_award_board = "SELECT Employee.id, Employee.name, Employee.email, Employee.salary, Performance.award_name FROM Employee INNER JOIN Performance ON Employee.award_id = Performance.award_id;";
 
-                    </tbody>
+                    $result_award_board = mysqli_query($con, $sql_award_board);
+
+                    while ($row = mysqli_fetch_assoc($result_award_board)) {
+                        echo
+                        '<tbody>
+                            <tr>
+                                <td>' . $row['id'] . '</td>
+                                <td>' . $row['name'] . '</td>
+                                <td>' . $row['email'] . '</td>
+                                <td>' . $row['salary'] . '</td>
+                                <td>' . $row['award_name'] . '</td>
+                            </tr>
+                        </tbody>';
+                    }
+                    ?>
+
                 </table>
             </div>
         </div>
