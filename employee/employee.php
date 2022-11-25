@@ -82,7 +82,7 @@ include "../connect.php";
                             <tr>
                                 <td>' .$id. '</td>
                                 <td>' .$row['name']. '</td>
-                                <td>' .$row['emial']. '</td>
+                                <td>' .$row['email']. '</td>
                                 <td>' .$row['gender']. '</td>
                                 <td>' .$row['date_of_birth']. '</td>
                                 <td>' .$row['department']. '</td>
