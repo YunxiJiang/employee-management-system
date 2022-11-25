@@ -54,7 +54,7 @@ include "../connect.php";
             </div>
         </div>
     </nav>
-    <a href="add_admin.php" class="btn btn-warning btn-lg">Add Attendance</a>
+    <a href="add_attendance.php" class="btn btn-warning btn-lg">Add Attendance</a>
 
     <table class="table">
         <thead>

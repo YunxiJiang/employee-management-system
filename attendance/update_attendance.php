@@ -57,7 +57,7 @@ if (isset($_POST['update'])) {
                 <input type="datetime-local" class="form-control" autocomplete="off" name="attendance_time">
                 <div class="form-text">Current attendance time is: <?php echo "$attendance_time" ?></div>
             </div>
-            <button type="submit" class="btn btn-success" name="update">Update</button>
+            <button type="submit" class="btn btn-warning" name="update">Update</button>
             <button type="submit" class="btn btn-primary" name="back">Back</button>
         </form>
 
