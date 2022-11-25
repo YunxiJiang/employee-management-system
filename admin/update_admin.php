@@ -3,19 +3,18 @@
     include "../resources/function.php";
 
     $id = $_GET['updateid'];
-    $sql_for_particular_employee = "SELECT * FROM Employee WHERE id=$id;";
-    $result_for_particular_employee = mysqli_query($con, $sql_for_particular_employee);
-    $row = mysqli_fetch_assoc($result_for_particular_employee);
+    $sql_for_particular_admin = "SELECT * FROM Admin WHERE id=$id;";
+    $result_for_particular_admin = mysqli_query($con, $sql_for_particular_admin);
+    $row = mysqli_fetch_assoc($result_for_particular_admin);
     $name = $row['name'];
     $email = $row['email'];
     $phone_number = $row['phone_number'];
     $gender = $row['gender'];
     $date_of_birth = $row['date_of_birth'];
     $department = $row['department'];
-    $salary = $row['salary'];
 
     if (isset($_POST['back'])) {
-        header('location:employee.php');
+        header('location:admin.php');
     }
 
     // Once press update button, update the data to the database
@@ -26,16 +25,15 @@
         $gender = $_POST['gender'];
         $date_of_birth = $_POST['date_of_birth'];
         $department = $_POST['department'];
-        $salary = $_POST['salary'];
 
-        $sql = "UPDATE Employee SET name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department', salary = '$salary' WHERE id='$id';";
+        $sql = "UPDATE Admin SET name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department' WHERE id='$id';";
         $resulat = mysqli_query($con, $sql);
         
         if($resulat) {
-            // Once update successful, back to employee page
-            header('location:employee.php');
+            // Once update successful, back to admin page
+            header('location:admin.php');
         } else {
-            function_alert("Update employee failed, please try again", "update_employee.php");
+            function_alert("Update admin failed, please try again", "update_admin.php");
         }
     }
 ?>
@@ -46,7 +44,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>add_employee</title>
+    <title>add_admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
@@ -76,10 +74,6 @@
             <div class="mb-3">
                 <label class="form-label">Department</label>
                 <input type="text" class="form-control" placeholder="<?php echo ''.$department.'' ?>" autocomplete="off" name="department">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Salary</label>
-                <input type="text" class="form-control" placeholder="<?php echo ''.$salary.'' ?>" autocomplete="off" name="salary">
             </div>
             <button type="submit" class="btn btn-success" name="update">Update</button>
             <button type="submit" class="btn btn-primary" name="back">Back</button>
