@@ -27,6 +27,8 @@
             // Once update successful, back to employee page
             header('location:employee.php');
         }
+    } else if (isset($_POST['back'])) {
+        header('location:employee.php');
     }
 ?>
 
@@ -68,7 +70,7 @@
                 <input type="text" class="form-control" placeholder="<?php echo ''.$salary.'' ?>" autocomplete="off" name="salary">
             </div>
             <button type="submit" class="btn btn-success" name="update">Update</button>
-            <button type="submit" class="btn btn-primary">Back</button>
+            <button type="submit" class="btn btn-primary" name="back">Back</button>
         </form>
 
     </div>

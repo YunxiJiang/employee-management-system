@@ -89,7 +89,7 @@ include "../connect.php";
                                 <td>' .$row['salary']. '</td>
                                 <td> 
                                     <a href="update_employee.php?updateid= '.$id.'" class="btn btn-primary">Update</a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                    <a href="delete_employee.php?deleteid= '.$id.'" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         </tbody>';
