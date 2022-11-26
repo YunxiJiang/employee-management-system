@@ -25,9 +25,9 @@ include "connect.php";
             </button>
 
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <div class="offcanvas-header bg-dark text-white">
+                    <h5 class="offcanvas-title " id="offcanvasNavbarLabel">Navigation</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -41,13 +41,13 @@ include "connect.php";
                             <a class="nav-link active" aria-current="page" href="employee/employee.php">Employee</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Performance</a>
+                            <a class="nav-link active" aria-current="page" href="performance/performance.php">Performance</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="attendance/attendance.php">Attendance</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Leave</a>
+                            <a class="nav-link active" aria-current="page" href="leave/leave.php">Leave</a>
                         </li>
                     </ul>
                 </div>
@@ -60,7 +60,7 @@ include "connect.php";
             <div class="col-4">
                 <div class="card shadow " style="width: 18rem;">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-center ">Admins</li>
+                        <li class="list-group-item text-center bg-danger text-white">Admins</li>
                         <li class="list-group-item">Total Admin :
                             <?php
                             // show all the admins
@@ -69,14 +69,14 @@ include "connect.php";
                             echo mysqli_num_rows($result_admin);
                             ?>
                         </li>
-                        <li class="list-group-item text-center"><a href="manage-admin.php"><b>View All Admins</b></a></li>
+
                     </ul>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card shadow " style="width: 18rem;">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-center">Employees</li>
+                        <li class="list-group-item text-center bg-primary text-white">Employees</li>
                         <li class="list-group-item">Total Employees :
                             <?php
                             // show all the employees
@@ -86,14 +86,14 @@ include "connect.php";
                             ?>
 
                         </li>
-                        <li class="list-group-item text-center"><a href="manage-employee.php"> <b>View All Employees</b></a></li>
+
                     </ul>
                 </div>
             </div>
             <div class="col-4">
                 <div class="card shadow " style="width: 18rem;">
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item text-center">Attendance and Leave</li>
+                        <li class="list-group-item text-center bg-warning text-white">Attendance and Leave</li>
                         <li class="list-group-item">Attendance :
                             <?php
                             // show all the attendances
@@ -122,7 +122,7 @@ include "connect.php";
                 </div>
                 <table class="table  table-hover">
                     <thead>
-                        <tr class="bg-info">
+                        <tr class="bg-success text-white">
                             <th scope="col">Employee Id</th>
                             <th scope="col">Employee Name</th>
                             <th scope="col">Employee Email</th>
@@ -136,7 +136,7 @@ include "connect.php";
                     $sql_award_board = "SELECT Employee.id, Employee.name, Employee.email, Employee.salary, Performance.award_name FROM Employee INNER JOIN Performance ON Employee.award_id = Performance.award_id;";
 
                     $result_award_board = mysqli_query($con, $sql_award_board);
-                
+
                     if (mysqli_num_rows($result_award_board) > 0) {
                         while ($row = mysqli_fetch_assoc($result_award_board)) {
                             echo
@@ -151,7 +151,7 @@ include "connect.php";
                             </tbody>';
                         }
                     }
-                    
+
                     ?>
 
                 </table>

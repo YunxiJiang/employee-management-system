@@ -2,6 +2,7 @@
 include "../connect.php";
 include "../resources/function.php";
 
+$error = '';
 if (isset($_POST['back'])) {
     header('location:admin.php');
 }
@@ -41,14 +42,16 @@ if (isset($_POST['submit'])){
                                     '$date_of_birth',
                                     '$department'
                                 )";
+        try{
+            $resulat_add_admin = mysqli_query($con, $sql_add_admin);
+        } catch(Exception $e) {
+            $error = 'Add admin error, please check information. The error is '.$e->getMessage();
+        }
         
-        $resulat_add_admin = mysqli_query($con, $sql_add_admin);
         // if add admin success, return to the admin page
         if($resulat_add_admin) {
             // Once update successful, back to admin page
             header('location:admin.php');
-        } else {
-            function_alert("Add admin failed, please try again", "add_admin.php");
         }
     }
     
@@ -98,6 +101,11 @@ if (isset($_POST['submit'])){
                 <label class="form-label">Department</label>
                 <input type="text" class="form-control" placeholder="Enter your Department" autocomplete="off" name="department">
             </div>
+            <div class="form-text text-danger">
+                    <?php
+                        echo $error;
+                    ?>
+                </div>
             <button type="submit" class="btn btn-success" name="submit">Submit</button>
             <button type="submit" class="btn btn-primary" name="back">Back</button>
         </form>

@@ -2,6 +2,8 @@
     include "../connect.php";
     include "../resources/function.php";
 
+    $error = '';
+
     $id = $_GET['updateid'];
     $sql_for_particular_employee = "SELECT * FROM Employee WHERE id=$id;";
     $result_for_particular_employee = mysqli_query($con, $sql_for_particular_employee);
@@ -29,7 +31,13 @@
         $salary = $_POST['salary'];
 
         $sql = "UPDATE Employee SET name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department', salary = '$salary' WHERE id='$id';";
-        $resulat = mysqli_query($con, $sql);
+
+        try{
+            $resulat = mysqli_query($con, $sql);
+        }catch (Exception $e){
+            $error = 'Update error, please check the information. The error is '.$e->getMessage();
+        }
+        
         
         if($resulat) {
             // Once update successful, back to employee page
@@ -81,6 +89,11 @@
                 <label class="form-label">Salary</label>
                 <input type="text" class="form-control" placeholder="<?php echo ''.$salary.'' ?>" autocomplete="off" name="salary">
             </div>
+            <div class="form-text text-danger">
+                    <?php
+                        echo $error;
+                    ?>
+                </div>
             <button type="submit" class="btn btn-success" name="update">Update</button>
             <button type="submit" class="btn btn-primary" name="back">Back</button>
         </form>

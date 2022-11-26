@@ -2,6 +2,8 @@
     include "../connect.php";
     include "../resources/function.php";
 
+    $error = '';
+
     $id = $_GET['updateid'];
     $sql_for_particular_admin = "SELECT * FROM Admin WHERE id=$id;";
     $result_for_particular_admin = mysqli_query($con, $sql_for_particular_admin);
@@ -27,13 +29,17 @@
         $department = $_POST['department'];
 
         $sql = "UPDATE Admin SET name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department' WHERE id='$id';";
-        $resulat = mysqli_query($con, $sql);
+
+        try {
+            $resulat = mysqli_query($con, $sql);
+        } catch(Exception $e){
+            $error = 'Update error, please check information. The error is '.$e->getMessage();
+        }
+        
         
         if($resulat) {
             // Once update successful, back to admin page
             header('location:admin.php');
-        } else {
-            function_alert("Update admin failed, please try again", "update_admin.php");
         }
     }
 ?>
@@ -75,6 +81,11 @@
                 <label class="form-label">Department</label>
                 <input type="text" class="form-control" placeholder="<?php echo ''.$department.'' ?>" autocomplete="off" name="department">
             </div>
+            <div class="form-text text-danger">
+                    <?php
+                        echo $error;
+                    ?>
+                </div>
             <button type="submit" class="btn btn-success" name="update">Update</button>
             <button type="submit" class="btn btn-primary" name="back">Back</button>
         </form>

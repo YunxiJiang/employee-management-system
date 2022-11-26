@@ -2,6 +2,8 @@
 include "../connect.php";
 include "../resources/function.php";
 
+$error = '';
+
 if (isset($_POST['back'])) {
     header('location:employee.php');
 }
@@ -23,37 +25,15 @@ if (isset($_POST['submit'])){
         $date_of_birth = $_POST['date_of_birth'];
         $department = $_POST['department'];
         $salary = $_POST['salary'];
+        $award_id = $_POST['award_id'];
 
-        $sql_add_employee = "INSERT INTO `Employee`(
-                                    `id`,
-                                    `name`,
-                                    `email`,
-                                    `phone_number`,
-                                    `gender`,
-                                    `date_of_birth`,
-                                    `department`,
-                                    `salary`
-                                )
-                                VALUES(
-                                    '$id',
-                                    '$name',
-                                    '$email',
-                                    '$phone_number',
-                                    '$gender',
-                                    '$date_of_birth',
-                                    '$department',
-                                    '$salary'
-                                )";
-        
-        $resulat_add_employee = mysqli_query($con, $sql_add_employee);
-        // if add employee success, return to the employee page
-        if($resulat_add_employee) {
-            // Once update successful, back to employee page
-            header('location:employee.php');
-        } else {
-            function_alert("Add employee failed, please try again", "add_employee.php");
+        try{
+            add_employee($con,$id,$name,$email,$phone_number,$gender,$date_of_birth,$department,$salary,$award_id);
+        }catch(Exception $e){
+            $error = 'add error, please check the information. The error is '.$e->getMessage();
         }
     }
+        
     
 }
 ?>
@@ -104,6 +84,31 @@ if (isset($_POST['submit'])){
             <div class="mb-3">
                 <label class="form-label">Salary</label>
                 <input type="text" class="form-control" placeholder="Enter salary" autocomplete="off" name="salary">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Award</label>
+                <select class="form-select" aria-label="Floating label select example" name="award_id">
+                    <?php
+                    $sql_award = "SELECT award_id, award_name FROM Performance;";
+                    $result_award = mysqli_query($con, $sql_award);
+                    if (mysqli_num_rows($result_award) > 0) {
+                        while ($row = mysqli_fetch_assoc($result_award)) {
+                            echo
+                            ' 
+                                <option value="'.$row['award_id'].'">'.$row['award_id'].': '.$row['award_name'].' </option>
+                                ';
+                        }
+                    } else{
+                        echo '<option>There is no award yet</option>';
+                    }
+
+                    ?>
+                </select>
+            </div>
+            <div class="form-text text-danger">
+                    <?php
+                        echo $error;
+                    ?>
             </div>
             <button type="submit" class="btn btn-success" name="submit">Submit</button>
             <button type="submit" class="btn btn-primary" name="back">Back</button>

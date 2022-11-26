@@ -25,9 +25,9 @@ include "../connect.php";
             </button>
 
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
+                <div class="offcanvas-header bg-dark text-white">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Navigation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
@@ -35,26 +35,26 @@ include "../connect.php";
                             <a class="nav-link active" aria-current="page" href="../dashboard.php">dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="../admin/admin.php">Admin</a>
+                            <a class="nav-link active" aria-current="page" href="admin.php">Admin</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../employee/employee.php">Employee</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Performance</a>
+                            <a class="nav-link active" aria-current="page" href="../performance/performance.php">Performance</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="../attendance/attendance.php">Attendance</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Leave</a>
+                            <a class="nav-link active" aria-current="page" href="../leave/leave.php">Leave</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
     </nav>
-    <a href="add_admin.php" class="btn btn-success btn-lg">Add Admin</a>
+    <a href="add_admin.php" class="btn btn-lg bg-danger text-white">Add Admin</a>
 
     <table class="table">
         <thead>

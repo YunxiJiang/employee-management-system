@@ -2,43 +2,36 @@
 include "../connect.php";
 include "../resources/function.php";
 
-$error = '';
-
 if (isset($_POST['back'])) {
-    header('location:attendance.php');
+    header('location:leave.php');
 }
 // Once press update button, update the data to the database
 if (isset($_POST['submit'])) {
     
     $id = $_POST['select_id'];
     // Check is Employee already attend, if it is, giving the error
-    $sql_checking_same_id = "SELECT employee_id FROM Employee_attendance WHERE employee_id = '$id';";
+    $sql_checking_same_id = "SELECT employee_id FROM Employee_leave WHERE employee_id = '$id';";
     $result_checking_same_id = mysqli_query($con, $sql_checking_same_id);
-    if (mysqli_num_rows($result_checking_same_id) > 0) {
-        function_alert("The Employee already attend, please enter another id", "add_attendance.php");
+    if (mysqli_num_rows($result_checking_same_id) <= 0) {
+        function_alert("The Employee already attend, please enter another employee", "add_leave.php");
     } else {
-        $attendance_time = $_POST['attendance_time'];
-        $sql_add_attendance = "INSERT INTO `Employee_attendance`(
+        $leave_time = $_POST['leave_time'];
+        $sql_add_leave = "INSERT INTO `Employee_leave`(
                                     `employee_id`,
-                                    `attendance_time`
+                                    `leave_time`
                                 )
                                 VALUES(
                                     '$id',
-                                    '$attendance_time'
+                                    '$leave_time'
                                 )";
 
-        try{
-            $resulat_add_attendance = mysqli_query($con, $sql_add_attendance);
-        } catch(Exception $e) {
-            $error = 'add error, please check information. The error is '.$e->getMessage();
-        }
-        
-        // if add attendance success, return to the attendance page
-        if ($resulat_add_attendance) {
-            // Once update successful, back to attendance page
-            header('location:attendance.php');
+        $resulat_add_leave = mysqli_query($con, $sql_add_leave);
+        // if add leave success, return to the leave page
+        if ($resulat_add_leave) {
+            // Once update successful, back to leave page
+            header('location:leave.php');
         } else {
-            function_alert("Add employee attendance failed, please try again", "add_attendance.php");
+            function_alert("Add employee leave failed, please try again", "add_leave.php");
         }
     }
 }
@@ -80,14 +73,9 @@ if (isset($_POST['submit'])) {
                 </select>
             </div>
             <div class="mb-3">
-                <label class="form-label">Attendance time</label>
-                <input type="datetime-local" class="form-control" placeholder="Enter your email" autocomplete="off" name="attendance_time">
+                <label class="form-label">Leave time</label>
+                <input type="datetime-local" class="form-control" placeholder="Enter your email" autocomplete="off" name="leave_time">
             </div>
-            <div class="form-text text-danger">
-                    <?php
-                        echo $error;
-                    ?>
-                </div>
 
             <button type="submit" class="btn btn-warning" name="submit">Submit</button>
             <button type="submit" class="btn btn-primary" name="back">Back</button>
