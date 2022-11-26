@@ -98,6 +98,7 @@ if (isset($_POST['submit'])){
                                 <option value="'.$row['award_id'].'">'.$row['award_id'].': '.$row['award_name'].' </option>
                                 ';
                         }
+                        echo '<option value="no_award">No award</option>';
                     } else{
                         echo '<option>There is no award yet</option>';
                     }

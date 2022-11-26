@@ -73,7 +73,7 @@ VALUES(
     '1999-1-3',
     'Cloud Engineer',
     20000,
-    311
+    NULL
 ),(
     214,
     'James',
@@ -83,7 +83,7 @@ VALUES(
     '1999-1-3',
     'Cloud Engineer',
     20000,
-    313
+    NULL
 ),(
     215,
     'Robert',
@@ -93,7 +93,7 @@ VALUES(
     '1999-1-4',
     'Cloud Engineer',
     20000,
-    314
+    NULL
 ),
 (
     216,
@@ -104,9 +104,9 @@ VALUES(
     '1999-1-5',
     'Java Engineer',
     20000,
-    316
+    NULL
 ),(
-    216,
+    217,
     'David',
     'David@gmail.com',
     '353877111116',
@@ -114,10 +114,10 @@ VALUES(
     '1999-1-6',
     'Java Engineer',
     20000,
-    null
+    NULL
 ),
 (
-    217,
+    218,
     'William',
     'William@gmail.com',
     '353877111117',
@@ -125,10 +125,10 @@ VALUES(
     '1999-1-7',
     'Web Engineer',
     10000,
-    null
+    NULL
 ),
 (
-    217,
+    219,
     'Richard',
     'Richard@gmail.com',
     '353877111118',
@@ -136,8 +136,8 @@ VALUES(
     '1999-1-8',
     'Web Engineer',
     10000,
-    213
-)
+    NULL
+);
 
 
 /* Admin table */
@@ -152,10 +152,58 @@ INSERT INTO `Admin`(
 )
 VALUES(
     111,
-    'Tom',
-    'tom@gmail.com',
-    '353877111111',
+    'Thomas',
+    'Thomas@gmail.com',
+    '353877112111',
     'male',
-    '1999-1-1',
+    '1999-2-1',
+    'Software Engineer'
+),(
+    112,
+    'Charles',
+    'Charles@gmail.com',
+    '353877112112',
+    'male',
+    '1999-2-2',
+    'Computer Training'
+),(
+    113,
+    'Christopher',
+    'Christopher@gmail.com',
+    '353877112113',
+    'female',
+    '1999-2-3',
+    'Operations Support'
+),(
+    114,
+    'Daniel',
+    'Daniel@gmail.com',
+    '353877112114',
+    'male',
+    '1999-2-4',
+    'Machine Learning'
+),(
+    115,
+    'Matthew',
+    'Matthew@gmail.com',
+    '353877112115',
+    'male',
+    '1999-2-5',
+    ''
+),(
+    116,
+    'Anthony',
+    'Anthony@gmail.com',
+    '353877112116',
+    'male',
+    '1999-2-6',
+    ' Network application'
+),(
+    117,
+    'Mark',
+    'Mark@gmail.com',
+    '353877112117',
+    'male',
+    '1999-2-7',
     'Software Engineer'
 );

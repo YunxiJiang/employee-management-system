@@ -72,15 +72,16 @@ include "../connect.php";
                 if (mysqli_num_rows($result_admin) > 0) {
                     while($row = mysqli_fetch_assoc($result_admin)) {
                         $award_id = $row['award_id'];
+                        $employee_id = $row['id'];
                         echo
                         '<tbody class="table-group-divider">
                             <tr>
-                                <td>' .$row['id']. '</td>
+                                <td>' .$employee_id. '</td>
                                 <td>' .$row['name']. '</td>
                                 <td>' .$award_id. '</td>
                                 <td>' .$row['award_name']. '</td>
                                 <td> 
-                                    <a href="update_performance.php?updateid= '.$award_id.'" class="btn btn-info">Update</a>
+                                    <a href="update_performance.php?update_award_id='.$award_id.'&update_employee_id='.$employee_id.'" class="btn btn-info">Update</a>
                                     <a href="delete_performance.php?deleteid= '.$award_id.'" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>

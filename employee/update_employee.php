@@ -4,8 +4,8 @@
 
     $error = '';
 
-    $id = $_GET['updateid'];
-    $sql_for_particular_employee = "SELECT * FROM Employee WHERE id=$id;";
+    $id_orignial = $_GET['updateid'];
+    $sql_for_particular_employee = "SELECT * FROM Employee WHERE id=$id_orignial;";
     $result_for_particular_employee = mysqli_query($con, $sql_for_particular_employee);
     $row = mysqli_fetch_assoc($result_for_particular_employee);
     $name = $row['name'];
@@ -15,6 +15,7 @@
     $date_of_birth = $row['date_of_birth'];
     $department = $row['department'];
     $salary = $row['salary'];
+    // $award_id = $row['award_id'];
 
     if (isset($_POST['back'])) {
         header('location:employee.php');
@@ -22,28 +23,28 @@
 
     // Once press update button, update the data to the database
     if (isset($_POST['update'])){
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone_number = $_POST['phone_number'];
-        $gender = $_POST['gender'];
-        $date_of_birth = $_POST['date_of_birth'];
-        $department = $_POST['department'];
-        $salary = $_POST['salary'];
+        $id_update = $_POST['id'];
 
-        $sql = "UPDATE Employee SET name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department', salary = '$salary' WHERE id='$id';";
-
-        try{
-            $resulat = mysqli_query($con, $sql);
-        }catch (Exception $e){
-            $error = 'Update error, please check the information. The error is '.$e->getMessage();
-        }
-        
-        
-        if($resulat) {
-            // Once update successful, back to employee page
-            header('location:employee.php');
+        // Check is there the same award id in Performance, if it is, giving the error
+        $sql_checking_same_id = "SELECT id FROM Employee WHERE id = '$id_update';";
+        $result_checking_same_id = mysqli_query($con, $sql_checking_same_id);
+        if (mysqli_num_rows($result_checking_same_id) > 0 && $id_update != $id_orignial) {
+            function_alert("The employee id already exisit, please enter another employee id", "add_employee.php");
         } else {
-            function_alert("Update employee failed, please try again", "update_employee.php");
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $phone_number = $_POST['phone_number'];
+            $gender = $_POST['gender'];
+            $date_of_birth = $_POST['date_of_birth'];
+            $department = $_POST['department'];
+            $salary = $_POST['salary'];
+            $award_id = $_POST['award_id'];
+
+            try{
+                update_employee($con,$id_update, $id_orignial, $name, $email, $phone_number, $gender, $date_of_birth, $department, $salary, $award_id);
+            }catch (Exception $e){
+                $error = 'Update error, please check the information. The error is '.$e->getMessage();
+            }
         }
     }
 ?>
@@ -61,6 +62,11 @@
 <body>
     <div class="container my-5">
         <form method="post">
+        <div class="mb-3">
+                <label class="form-label">Id</label>
+                <input type="text" class="form-control" placeholder="<?php echo ''.$id_orignial.'' ?>" autocomplete="off" name="id">
+                <div class="form-text">Format: 2xx, Example: 211</div>
+            </div>
             <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control" placeholder="<?php echo ''.$name.'' ?>" autocomplete="off" name="name">
@@ -88,6 +94,27 @@
             <div class="mb-3">
                 <label class="form-label">Salary</label>
                 <input type="text" class="form-control" placeholder="<?php echo ''.$salary.'' ?>" autocomplete="off" name="salary">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Award</label>
+                <select class="form-select" aria-label="Floating label select example" name="award_id">
+                    <?php
+                    $sql_award = "SELECT award_id, award_name FROM Performance;";
+                    $result_award = mysqli_query($con, $sql_award);
+                    if (mysqli_num_rows($result_award) > 0) {
+                        while ($row = mysqli_fetch_assoc($result_award)) {
+                            echo
+                            ' 
+                                <option value="'.$row['award_id'].'">'.$row['award_id'].': '.$row['award_name'].' </option>
+                                ';
+                        }
+                        echo '<option value="not_give_award">Not give award</option>';
+                    } else{
+                        echo '<option value="no_award">There is no award yet</option>';
+                    }
+
+                    ?>
+                </select>
             </div>
             <div class="form-text text-danger">
                     <?php

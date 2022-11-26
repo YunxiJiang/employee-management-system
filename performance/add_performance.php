@@ -14,6 +14,7 @@ if (isset($_POST['submit'])) {
         function_alert("There is no employee, please add employee first", "../employee/employee.php");
     } else {
         $award_id = $_POST['award_id'];
+        
         // Check is there the same award id in Performance, if it is, giving the error
         $sql_checking_same_id = "SELECT award_id FROM Performance WHERE award_id = '$award_id';";
         $result_checking_same_id = mysqli_query($con, $sql_checking_same_id);
@@ -83,6 +84,7 @@ if (isset($_POST['submit'])) {
                                 <option value="' . $row['id'] . '">' . $row['id'] . ': ' . $row['name'] . ' </option>
                                 ';
                         }
+                        
                     } else {
                         echo '<option value="">Please add employee first</option>';
                     }

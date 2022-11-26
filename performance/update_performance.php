@@ -4,10 +4,13 @@ include "../resources/function.php";
 
 $error = '';
 // get particular award id from previous page
-$award_id_particular = $_GET['updateid'];
-$sql_for_particular_performance = "SELECT Employee.id, Employee.name, Performance.award_id, Performance.award_name FROM Performance INNER JOIN Employee ON Employee.id = Performance.employee_id WHERE Performance.award_id=$award_id_particular;";
-$result_for_particular_performance = mysqli_query($con, $sql_for_particular_performance);
-$row = mysqli_fetch_assoc($result_for_particular_performance);
+$award_id_original = $_GET['update_award_id'];
+$employee_id_original = $_GET['update_employee_id'];
+
+$sql_for_original_performance = "SELECT Employee.id, Employee.name, Performance.award_id, Performance.award_name FROM Performance INNER JOIN Employee ON Employee.id = Performance.employee_id WHERE Performance.award_id='$award_id_original';";
+$result_for_original_performance = mysqli_query($con, $sql_for_original_performance);
+
+$row = mysqli_fetch_assoc($result_for_original_performance);
 $award_name = $row['award_name'];
 $award_id = $row['award_id'];
 
@@ -17,18 +20,21 @@ if (isset($_POST['back'])) {
 
 // Once press update button, update the data to the database
 if (isset($_POST['update'])) {
-    $employee_id = $_POST['employee_id'];
+    $employee_id_new = $_POST['employee_id'];
 
-    $sql = "UPDATE Performance SET employee_id = '$employee_id' WHERE award_id='$award_id_particular';";
+    $sql_award = "UPDATE Performance SET employee_id = '$employee_id_new' WHERE award_id= '$award_id_original';";
+    $sql_employee_update = "UPDATE Employee SET award_id='$award_id_original' WHERE id = $employee_id_new;";
+    $sql_employee_delete = "UPDATE Employee SET award_id= null WHERE id = $employee_id_original;";
 
     try {
-        $resulat = mysqli_query($con, $sql);
+        $result = mysqli_query($con, $sql_award);
+        $result_employee_update = mysqli_query($con, $sql_employee_update);
+        $result_employee_delete = mysqli_query($con, $sql_employee_delete);
     }catch(Exception $e) {
         $error = 'Update error, please check the information. The error is '.$e->getMessage();
     }
     
-
-    if ($resulat) {
+    if ($result && $result_employee_update && $result_employee_delete) {
         // Once update successful, back to performance page
         header('location:performance.php');
     }
