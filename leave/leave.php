@@ -44,6 +44,9 @@ include "../connect.php";
                             <a class="nav-link active" aria-current="page" href="../performance/performance.php">Performance</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="../attendance/attendance.php">Attendance</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="leave.php">Leave</a>
                         </li>
                     </ul>

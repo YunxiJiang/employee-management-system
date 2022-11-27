@@ -11,11 +11,15 @@ if (isset($_POST['back'])) {
 if (isset($_POST['submit'])) {
     
     $id = $_POST['select_id'];
-    // Check is Employee already attend, if it is, giving the error
+    // Check is Employee already leave or have the same attendance in Employee attendance, if it is, giving the error
     $sql_checking_same_id = "SELECT employee_id FROM Employee_attendance WHERE employee_id = '$id';";
+    $sql_checking_leave = "SELECT employee_id FROM Employee_leave WHERE employee_id = '$id'";
     $result_checking_same_id = mysqli_query($con, $sql_checking_same_id);
+    $result_checking_leave = mysqli_query($con, $sql_checking_leave);
     if (mysqli_num_rows($result_checking_same_id) > 0) {
-        function_alert("The Employee already attend, please enter another id", "add_attendance.php");
+        function_alert("The Employee already attend, please enter another employee or update attendance information for this employee", "add_attendance.php");
+    } else if (mysqli_num_rows($result_checking_leave) > 0){
+        function_alert("The Employee already leave, please enter another employee or delete leave information for this employee", "add_attendance.php");
     } else {
         $attendance_time = $_POST['attendance_time'];
         $sql_add_attendance = "INSERT INTO `Employee_attendance`(

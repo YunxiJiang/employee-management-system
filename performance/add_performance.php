@@ -15,7 +15,7 @@ if (isset($_POST['submit'])) {
     } else {
         $award_id = $_POST['award_id'];
         
-        // Check is there the same award id in Performance, if it is, giving the error
+        // Check is there the same award id and leave information in Performance, if it has same id or leaving, giving the error
         $sql_checking_same_id = "SELECT award_id FROM Performance WHERE award_id = '$award_id';";
         $result_checking_same_id = mysqli_query($con, $sql_checking_same_id);
         if (mysqli_num_rows($result_checking_same_id) > 0) {
