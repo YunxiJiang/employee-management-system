@@ -87,12 +87,17 @@ function add_employee($con, $id, $name, $email, $phone_number, $gender, $date_of
             '$award_id'
         );";
         $resulat_add_employee = mysqli_query($con, $sql_add_employee);
+
+        // synchronize award for employee
+        $sql_award = "UPDATE Performance SET employee_id = '$id' WHERE employee_id = '$id'";
+        $result_award = mysqli_query($con, $sql_award);
+
         // if add employee success, return to the employee page
-        if($resulat_add_employee) {
+        if($resulat_add_employee && $result_award) {
         // Once update successful, back to employee page
         header('location:employee.php');
         } else {
-        function_alert("Add employee failed, please try again", "add_employee.php");
+            function_alert("Add employee failed, please try again", "add_employee.php");
         }
     }
 }

@@ -29,6 +29,7 @@ if (isset($_POST['submit'])){
 
         try{
             add_employee($con,$id,$name,$email,$phone_number,$gender,$date_of_birth,$department,$salary,$award_id);
+
         }catch(Exception $e){
             $error = 'add error, please check the information. The error is '.$e->getMessage();
         }

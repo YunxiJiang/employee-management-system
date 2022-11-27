@@ -56,40 +56,48 @@ include "../connect.php";
     </nav>
     <a href="add_performance.php" class="btn btn-info btn-lg">Add Performance</a>
 
+
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Employee id</th>
-                <th scope="col">Employee Name</th>
+                <th scope="col">#</th>
                 <th scope="col">Award id</th>
                 <th scope="col">Award Name</th>
-                <th scope="col">Action</th>
+                <th scope="col">Update</th>
+                <th scope="col">Delete</th>
+
             </tr>
         </thead>
             <?php
-                $sql_admin = "SELECT Employee.id, Employee.name, Performance.award_name, Performance.award_id FROM Employee INNER JOIN Performance ON Employee.award_id = Performance.award_id;";
-                $result_admin = mysqli_query($con, $sql_admin);
-                if (mysqli_num_rows($result_admin) > 0) {
-                    while($row = mysqli_fetch_assoc($result_admin)) {
+                $sql_performance = "SELECT * FROM Performance;";
+                $result_performance = mysqli_query($con, $sql_performance);
+                if (mysqli_num_rows($result_performance) > 0) {
+                    $count = 1;
+                    while($row = mysqli_fetch_assoc($result_performance)) {
                         $award_id = $row['award_id'];
-                        $employee_id = $row['id'];
+                        $award_name = $row['award_name'];
                         echo
                         '<tbody class="table-group-divider">
                             <tr>
-                                <td>' .$employee_id. '</td>
-                                <td>' .$row['name']. '</td>
+                                <td>' .$count. '</td>
                                 <td>' .$award_id. '</td>
-                                <td>' .$row['award_name']. '</td>
+                                <td>' .$award_name. '</td>
                                 <td> 
-                                    <a href="update_performance.php?update_award_id='.$award_id.'&update_employee_id='.$employee_id.'" class="btn btn-info">Update</a>
+                                    <a href="update_performance.php?update_award_id='.$award_id.'" class="btn btn-info">Update</a>
+                                    
+                                </td>
+                                <td>
                                     <a href="delete_performance.php?deleteid= '.$award_id.'" class="btn btn-danger">Delete</a>
                                 </td>
                             </tr>
                         </tbody>';
+                        $count = $count + 1;
                     }
                 }
             ?>
     </table>
+
+    
 
 
 </body>
