@@ -25,7 +25,7 @@
     if (isset($_POST['update'])){
         $id_update = $_POST['id'];
 
-        // Check is there the same award id in Performance, if it is, giving the error
+        // Check is there the same award id in Employee, if it is, giving the error
         $sql_checking_same_id = "SELECT id FROM Employee WHERE id = '$id_update';";
         $result_checking_same_id = mysqli_query($con, $sql_checking_same_id);
         if (mysqli_num_rows($result_checking_same_id) > 0 && $id_update != $id_orignial) {

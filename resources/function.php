@@ -25,11 +25,16 @@ function the_number_of_award($con){
     return mysqli_num_rows($result_award);
 }
 
-function the_number_of_award_with_employee_id($con, $id){
-    $sql_award = "SELECT employee_id FROM Performance WHERE employee_id = $id;";
-    $result_award = mysqli_query($con, $sql_award);
-
-    return $result_award->employee_id;
+// Checking same id in database
+function check_same_id($con,$table_name, $cell_name, $id){
+    $sql = "SELECT $cell_name FROM $table_name WHERE $cell_name = $id;";
+    $result = mysqli_query($con, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        return true;
+    } else {
+        return false;
+    }
+    
 }
 
 // Add employee to the database
