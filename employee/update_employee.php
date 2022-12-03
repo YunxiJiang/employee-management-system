@@ -15,7 +15,7 @@
     $date_of_birth = $row['date_of_birth'];
     $department = $row['department'];
     $salary = $row['salary'];
-    // $award_id = $row['award_id'];
+    $award_id = $row['award_id'];
 
     if (isset($_POST['back'])) {
         header('location:employee.php');
@@ -26,9 +26,7 @@
         $id_update = $_POST['id'];
 
         // Check is there the same award id in Employee, if it is, giving the error
-        $sql_checking_same_id = "SELECT id FROM Employee WHERE id = '$id_update';";
-        $result_checking_same_id = mysqli_query($con, $sql_checking_same_id);
-        if (mysqli_num_rows($result_checking_same_id) > 0 && $id_update != $id_orignial) {
+        if (check_same_id($con, "Employee", "id", $id_update) && $id_update != $id_orignial) {
             function_alert("The employee id already exisit, please enter another employee id", "add_employee.php");
         } else {
             $name = $_POST['name'];
@@ -41,6 +39,7 @@
             $award_id = $_POST['award_id'];
 
             try{
+                // when update employee information, the information of attendance and leave will automaticly update
                 update_employee($con,$id_update, $id_orignial, $name, $email, $phone_number, $gender, $date_of_birth, $department, $salary, $award_id);
             }catch (Exception $e){
                 $error = 'Update error, please check the information. The error is '.$e->getMessage();

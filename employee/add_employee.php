@@ -12,9 +12,7 @@ if (isset($_POST['submit'])){
     $id = $_POST['id'];
 
     // Check is there the same id in Employee, if it is, giving the error
-    $sql_checking_same_id = "SELECT id FROM Employee WHERE id = '$id';";
-    $result_checking_same_id = mysqli_query($con,$sql_checking_same_id);
-    if (mysqli_num_rows($result_checking_same_id) > 0){
+    if (check_same_id($con, "Employee", "id", $id)){
         function_alert("The id already exisit, please enter another id", "add_employee.php");
     } else {
         

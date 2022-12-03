@@ -39,36 +39,6 @@ function check_same_id($con,$table_name, $cell_name, $id){
 
 // Add employee to the database
 function add_employee($con, $id, $name, $email, $phone_number, $gender, $date_of_birth, $department, $salary, $award_id){
-    if (the_number_of_award($con) <= 0 || $award_id == "no_award"){
-        $sql_add_employee = "INSERT INTO `Employee`(
-                    `id`,
-                    `name`,
-                    `email`,
-                    `phone_number`,
-                    `gender`,
-                    `date_of_birth`,
-                    `department`,
-                    `salary`
-                )
-                VALUES(
-                    '$id',
-                    '$name',
-                    '$email',
-                    '$phone_number',
-                    '$gender',
-                    '$date_of_birth',
-                    '$department',
-                    '$salary'
-                );";
-        $resulat_add_employee = mysqli_query($con, $sql_add_employee);
-        // if add employee success, return to the employee page
-        if($resulat_add_employee) {
-        // Once update successful, back to employee page
-        header('location:employee.php');
-        } else {
-        function_alert("Add employee failed, please try again", "add_employee.php");
-        }
-    } else{
         $sql_add_employee = "INSERT INTO `Employee`(
             `id`,
             `name`,
@@ -93,43 +63,36 @@ function add_employee($con, $id, $name, $email, $phone_number, $gender, $date_of
         );";
         $resulat_add_employee = mysqli_query($con, $sql_add_employee);
 
-        // synchronize award for employee
-        $sql_award = "UPDATE Performance SET employee_id = '$id' WHERE employee_id = '$id'";
-        $result_award = mysqli_query($con, $sql_award);
-
         // if add employee success, return to the employee page
-        if($resulat_add_employee && $result_award) {
+        if($resulat_add_employee) {
         // Once update successful, back to employee page
         header('location:employee.php');
         } else {
             function_alert("Add employee failed, please try again", "add_employee.php");
         }
     }
+
+// delete attendance and leave information based on employee_id in database
+function delete_attendance_leave($con, $id) {
+    $sql_attendance = "DELETE FROM Employee_attendance WHERE employee_id = $id";
+    $sql_leave = "DELETE FROM Employee_leave WHERE employee_id = $id";
+    $result_performance = mysqli_query($con, $sql_attendance);
+    $result_leave = mysqli_query($con, $sql_leave);
 }
+
 
 // Update employee to the database and synchronize award_id whithin Performance table
 function update_employee($con,$id_update,$id_orignial, $name, $email, $phone_number, $gender, $date_of_birth, $department, $salary, $award_id){
-    if ($award_id == "not_give_award"){
-        $sql_employee = "UPDATE Employee SET id = '$id_update', name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department', salary = '$salary', award_id = null WHERE id='$id_orignial';";
-        $sql_performance_delete = "DELETE FROM Performance WHERE employee_id='$id_orignial';";
-        $result_performance_delete = mysqli_query($con, $sql_performance_delete);
-        $result_employee = mysqli_query($con, $sql_employee);
-        if($result_employee && $result_performance_delete) {
-            // Once update successful, back to employee page
-            header('location:employee.php');
-        } else {
-            function_alert("Update employee failed, please try again", "update_employee.php");
-        }
-    }  else if ($award_id == "no_award") {
-        $sql_employee = "UPDATE Employee SET id = '$id_update', name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department', salary = '$salary', award_id = null WHERE id='$id_orignial';";
-        $result_employee = mysqli_query($con, $sql_employee);
+    if ($award_id == "not_give_award" || $award_id == "no_award"){
+        $sql_employee_update = "UPDATE Employee SET id = '$id_update', name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department', salary = '$salary', award_id = null WHERE id='$id_orignial';";
+        $result_employee = mysqli_query($con, $sql_employee_update);
         if($result_employee) {
             // Once update successful, back to employee page
             header('location:employee.php');
         } else {
             function_alert("Update employee failed, please try again", "update_employee.php");
         }
-    } else {
+    } else { 
         $sql_employee = "UPDATE Employee SET id = '$id_update', name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department', salary = '$salary', award_id = '$award_id' WHERE id='$id_orignial';";
         $result_employee = mysqli_query($con, $sql_employee);
         if($result_employee) {
@@ -139,7 +102,6 @@ function update_employee($con,$id_update,$id_orignial, $name, $email, $phone_num
             function_alert("Update employee failed, please try again", "update_employee.php");
         }
     }
-
 }
 
 ?>
