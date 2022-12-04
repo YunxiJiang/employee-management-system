@@ -13,7 +13,7 @@ if (isset($_POST['submit'])){
 
     // Check is there the same id in Employee, if it is, giving the error
     if (check_same_id($con, "Employee", "id", $id)){
-        function_alert("The id already exisit, please enter another id", "add_employee.php");
+        function_alert("The id already exisit, please enter another id", "employee.php");
     } else {
         
         $name = $_POST['name'];
@@ -97,9 +97,9 @@ if (isset($_POST['submit'])){
                                 <option value="'.$row['award_id'].'">'.$row['award_id'].': '.$row['award_name'].' </option>
                                 ';
                         }
-                        echo '<option value="no_award">No award</option>';
+                        echo '<option value="not_give_award">Not give award</option>';
                     } else{
-                        echo '<option>There is no award yet</option>';
+                        echo '<option value="no_award">There is no award yet</option>';
                     }
 
                     ?>

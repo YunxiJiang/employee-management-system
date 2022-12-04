@@ -4,8 +4,8 @@
 
     $error = '';
 
-    $id = $_GET['updateid'];
-    $sql_for_particular_admin = "SELECT * FROM Admin WHERE id=$id;";
+    $id_original = $_GET['updateid'];
+    $sql_for_particular_admin = "SELECT * FROM Admin WHERE id=$id_original;";
     $result_for_particular_admin = mysqli_query($con, $sql_for_particular_admin);
     $row = mysqli_fetch_assoc($result_for_particular_admin);
     $name = $row['name'];
@@ -21,26 +21,34 @@
 
     // Once press update button, update the data to the database
     if (isset($_POST['update'])){
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $phone_number = $_POST['phone_number'];
-        $gender = $_POST['gender'];
-        $date_of_birth = $_POST['date_of_birth'];
-        $department = $_POST['department'];
-
-        $sql = "UPDATE Admin SET name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department' WHERE id='$id';";
-
-        try {
-            $resulat = mysqli_query($con, $sql);
-        } catch(Exception $e){
-            $error = 'Update error, please check information. The error is '.$e->getMessage();
+        $id_update = $_POST['id'];
+        // check if there is same Admin id
+        if (check_same_id($con, "Admin", "id", $id_update) && $id_update != $id_original) {
+            function_alert("The admin id already exisit, please enter another admin id", "admin.php");
+        } else{
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $phone_number = $_POST['phone_number'];
+            $gender = $_POST['gender'];
+            $date_of_birth = $_POST['date_of_birth'];
+            $department = $_POST['department'];
+    
+            $sql = "UPDATE Admin SET name = '$name', email = '$email', phone_number = '$phone_number', gender = '$gender', date_of_birth = '$date_of_birth', department = '$department' WHERE id='$id_original';";
+    
+            try {
+                $resulat = mysqli_query($con, $sql);
+            } catch(Exception $e){
+                $error = 'Update error, please check information. The error is '.$e->getMessage();
+            }
+            
+            
+            if($resulat) {
+                // Once update successful, back to admin page
+                header('location:admin.php');
+            }
         }
         
-        
-        if($resulat) {
-            // Once update successful, back to admin page
-            header('location:admin.php');
-        }
+
     }
 ?>
 
@@ -57,6 +65,10 @@
 <body>
     <div class="container my-5">
         <form method="post">
+        <div class="mb-3">
+                <label class="form-label">Id</label>
+                <input type="text" class="form-control" placeholder="<?php echo ''.$id_original.'' ?>" autocomplete="off" name="id">
+            </div>
             <div class="mb-3">
                 <label class="form-label">Name</label>
                 <input type="text" class="form-control" placeholder="<?php echo ''.$name.'' ?>" autocomplete="off" name="name">

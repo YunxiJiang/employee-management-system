@@ -39,6 +39,39 @@ function check_same_id($con,$table_name, $cell_name, $id){
 
 // Add employee to the database
 function add_employee($con, $id, $name, $email, $phone_number, $gender, $date_of_birth, $department, $salary, $award_id){
+    if ($award_id == "not_give_award" || $award_id == "no_award"){
+        $sql_add_employee = "INSERT INTO `Employee`(
+            `id`,
+            `name`,
+            `email`,
+            `phone_number`,
+            `gender`,
+            `date_of_birth`,
+            `department`,
+            `salary`,
+            `award_id`
+        )
+        VALUES(
+            '$id',
+            '$name',
+            '$email',
+            '$phone_number',
+            '$gender',
+            '$date_of_birth',
+            '$department',
+            '$salary',
+            null
+        );";
+        $resulat_add_employee = mysqli_query($con, $sql_add_employee);
+
+        // if add employee success, return to the employee page
+        if($resulat_add_employee) {
+        // Once update successful, back to employee page
+        header('location:employee.php');
+        } else {
+            function_alert("Add employee failed, please try again", "add_employee.php");
+        }
+    }else {
         $sql_add_employee = "INSERT INTO `Employee`(
             `id`,
             `name`,
@@ -70,6 +103,8 @@ function add_employee($con, $id, $name, $email, $phone_number, $gender, $date_of
         } else {
             function_alert("Add employee failed, please try again", "add_employee.php");
         }
+    }
+
     }
 
 // delete attendance and leave information based on employee_id in database

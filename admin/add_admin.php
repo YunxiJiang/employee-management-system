@@ -14,7 +14,7 @@ if (isset($_POST['submit'])){
     $sql_checking_same_id = "SELECT id FROM Admin WHERE id = '$id';";
     $result_checking_same_id = mysqli_query($con,$sql_checking_same_id);
     if (mysqli_num_rows($result_checking_same_id) > 0){
-        function_alert("The admin id already exisit, please enter another id", "add_admin.php");
+        function_alert("The admin id already exisit, please enter another id", "admin.php");
     } else {
         
         $name = $_POST['name'];

@@ -27,7 +27,7 @@
 
         // Check is there the same award id in Employee, if it is, giving the error
         if (check_same_id($con, "Employee", "id", $id_update) && $id_update != $id_orignial) {
-            function_alert("The employee id already exisit, please enter another employee id", "add_employee.php");
+            function_alert("The employee id already exisit, please enter another employee id", "employee.php");
         } else {
             $name = $_POST['name'];
             $email = $_POST['email'];
