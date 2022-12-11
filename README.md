@@ -4,7 +4,7 @@ The project of class of Informatics in UCD
 
 ## Usage
 
-1. Create database called "employee_managemant_system" and import "employee_management_system.sql"
+1. Create database called "project" and import "project.sql"
 2. Run "index.php" (This is the first page of the project)
 
 ## Functions

@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect("localhost","root","","employee_managemant_system");
+$con = mysqli_connect("localhost","Informatics","IS41090","project");
 if (!$con){
     die(mysqli_error("Error" + $con));
 }

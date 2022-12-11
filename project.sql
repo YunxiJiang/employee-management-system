@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2022 at 08:37 PM
+-- Generation Time: Dec 11, 2022 at 11:16 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.1.6
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `employee_managemant_system`
+-- Database: `project`
 --
 
 -- --------------------------------------------------------
@@ -207,19 +207,19 @@ ALTER TABLE `Employee`
 -- Constraints for table `Employee`
 --
 ALTER TABLE `Employee`
-  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`award_id`) REFERENCES `Performance` (`award_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`award_id`) REFERENCES `performance` (`award_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Employee_attendance`
 --
 ALTER TABLE `Employee_attendance`
-  ADD CONSTRAINT `employee_attendance_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `Employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `employee_attendance_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `Employee_leave`
 --
 ALTER TABLE `Employee_leave`
-  ADD CONSTRAINT `employee_leave_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `Employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `employee_leave_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
